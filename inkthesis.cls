@@ -13,6 +13,10 @@
 \SetupKeyvalOptions{family=INK, prefix=INK@, setkeys=\kvsetkeys}
 \newcommand{\ekv}[1]{\kvsetkeys{ELEGANT}{#1}}
 \RequirePackage[scheme=plain]{ctex}
+\renewcommand{\title}[1]{\ekv{title = #1}}
+\renewcommand{\author}[1]{\ekv{author = #1}}
+\newcommand{\institute}[1]{\ekv{insti = #1}}
+\renewcommand{\date}[1]{\ekv{date = #1}}
 
 
 \DeclareStringOption[en]{lang}
@@ -27,7 +31,8 @@
 	\RequirePackage{fontenc}
 	\RequirePackage[no-math]{fontspec}
 	\setmainfont{Centaur}[NFSSFamily=ntxtlf]
-	\setsansfont{Arial}
+    \setsansfont{Arial}
+    \setmonofont[Scale=0.7]{Courier New}
 	%\setmonofont[Scale=0.7]{Courier New}
 	\RequirePackage{xeCJK}
 	\RequirePackage{xunicode}
@@ -62,7 +67,14 @@
         \vspace{50pt}
         \begin{center}
             \ifdefstring{\INK@coverhead}{include}{
-
+                \INK@insti
+                \vspace{10pt}
+                学\quad位\quad论\quad文
+                \vspace{50pt}
+                \INK@title
+                \vspace{10pt}
+                \INK@author
+                \INK@date
             }{\relax}
         \end{center}
     }
