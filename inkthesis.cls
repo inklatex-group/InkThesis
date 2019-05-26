@@ -1,5 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage[Thesis template.]{inkthesis}
+
+\ProvidesPackage{inkthesis}[2019/5/26 v 0.01 Thesis template.]
+
 \LoadClass[11pt,a4paper,fancyhdr]{book}
 
 \RequirePackage{kvoptions}
@@ -8,15 +10,15 @@
 \RequirePackage{etoolbox}
 \RequirePackage{calc}
 \RequirePackage{zhnumber}
+\RequirePackage{color}
 \AtEndOfClass{\RequirePackage{microtype}}
 
 \SetupKeyvalOptions{family=INK, prefix=INK@, setkeys=\kvsetkeys}
 \newcommand{\ekv}[1]{\kvsetkeys{ELEGANT}{#1}}
 \RequirePackage[scheme=plain]{ctex}
-\renewcommand{\title}[1]{\ekv{title = #1}}
-\renewcommand{\author}[1]{\ekv{author = #1}}
-\newcommand{\institute}[1]{\ekv{insti = #1}}
-\renewcommand{\date}[1]{\ekv{date = #1}}
+
+\newtoks\institute
+
 
 
 \DeclareStringOption[en]{lang}
@@ -62,20 +64,26 @@
 
 
     \renewcommand{\maketitle}{%
-        \clearpage 
+    	
         \thispagestyle{empty} 
-        \vspace{50pt}
-        \begin{center}
-            \ifdefstring{\INK@coverhead}{include}{
-                \INK@insti
-                \vspace{10pt}
-                学\quad位\quad论\quad文
-                \vspace{50pt}
-                \INK@title
-                \vspace{10pt}
-                \INK@author
-                \INK@date
-            }{\relax}
-        \end{center}
+        \vspace*{50pt}
+      
+        	\ifdefstring{\INK@coverhead}{include}{
+        		\begin{flushright}
+        			\the\institute
+        			\vspace*{10pt}
+        			\flushright{ 学 \quad 位 \quad 论 \quad 文}
+        			\vspace*{50pt}
+        			\sbox\color{black}\hfill
+        			\the\title
+        			\vspace*{10pt}
+        			\the\author
+        			\the\date
+        		}{\relax}
+        		\end{flushright}
+        		
+       
+            
+        
     }
 }{\relax}
