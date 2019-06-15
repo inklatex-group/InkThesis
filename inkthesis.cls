@@ -11,13 +11,16 @@
 \RequirePackage{calc}
 \RequirePackage{zhnumber}
 \RequirePackage{color}
+\RequirePackage{booktabs}
+\RequirePackage[colorlinks,linkcolor=blue]{hyperref}
 \AtEndOfClass{\RequirePackage{microtype}}
 
 \SetupKeyvalOptions{family=INK, prefix=INK@, setkeys=\kvsetkeys}
 \newcommand{\ekv}[1]{\kvsetkeys{ELEGANT}{#1}}
-\RequirePackage[scheme=plain]{ctex}
+
 
 \newtoks\institute
+\newtoks\version
 
 
 
@@ -27,12 +30,12 @@
 \DeclareStringOption[include]{coverhead}
 \DeclareVoidOption{include}{\ekv{coverhead = include}}
 \DeclareVoidOption{noinclude}{\ekv{coverhead = noinclude}}
-\ifdefstring{\INK@lang}{cn}{
+
     \RequirePackage{ifxetex}
 \ifxetex
 	\RequirePackage{fontenc}
 	\RequirePackage[no-math]{fontspec}
-	\setmainfont{Centaur}[NFSSFamily=ntxtlf]
+	\setmainfont{Times New Romans}[NFSSFamily=ntxtlf]
     \setsansfont{Arial}
     \setmonofont[Scale=0.7]{Courier New}
 	%\setmonofont[Scale=0.7]{Courier New}
@@ -60,30 +63,37 @@
 	\RequirePackage{newtxmath}
 	\RequirePackage[UTF8, scheme=plain]{ctex}
 \fi
-\RequirePackage[scale=0.7]{FiraMono}
 
+\renewcommand*\maketitle{%
+	\thispagestyle{empty}
+	\let\footnotesize\small
+	%\let\footnoterule\hrule\vspace{5pt}
+	\let \footnote \thanks
+	\begin{flushright}%
+		\zihao{-3}{\the\institute}
+		\vspace{50pt}%
+		\hrule%
+		\vspace{50pt}%
+		{\LARGE \@title \par}%
+		\vspace{50pt}%
+		\hrule%
+		\vspace{50pt}%
+		{\Large \@author \par}
+		\vspace{5pt}
+		{\Large \@date \par}
+	\end{flushright}%
+	\@thanks
+	\vfil\null
+	\setcounter{footnote}{0}%
+ \global\let\thanks\relax
+ \global\let\maketitle\relax
+ \global\let\@thanks\@empty
+ \global\let\@author\@empty
+ \global\let\@date\@empty
+ \global\let\@title\@empty
+ \global\let\title\relax
+ \global\let\author\relax
+ \global\let\date\relax
+ \global\let\and\relax
 
-    \renewcommand{\maketitle}{%
-    	
-        \thispagestyle{empty} 
-        \vspace*{50pt}
-      
-        	\ifdefstring{\INK@coverhead}{include}{
-        		\begin{flushright}
-        			\the\institute
-        			\vspace*{10pt}
-        			\flushright{ 学 \quad 位 \quad 论 \quad 文}
-        			\vspace*{50pt}
-        			\sbox\color{black}\hfill
-        			\the\title
-        			\vspace*{10pt}
-        			\the\author
-        			\the\date
-        		}{\relax}
-        		\end{flushright}
-        		
-       
-            
-        
-    }
-}{\relax}
+}
