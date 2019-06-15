@@ -16,7 +16,7 @@
 \AtEndOfClass{\RequirePackage{microtype}}
 
 \SetupKeyvalOptions{family=INK, prefix=INK@, setkeys=\kvsetkeys}
-\newcommand{\ekv}[1]{\kvsetkeys{ELEGANT}{#1}}
+\newcommand{\ekv}[1]{\kvsetkeys{INK}{#1}}
 
 
 \newtoks\institute
@@ -106,3 +106,4 @@
  \global\let\and\relax
 
 }
+
