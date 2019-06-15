@@ -21,7 +21,9 @@
 
 \newtoks\institute
 \newtoks\version
-
+\newtoks\supervisor
+\newtoks\advisor
+\newtoks\equote
 
 
 \DeclareStringOption[en]{lang}
@@ -81,7 +83,14 @@
 		{\Large \@author \par}
 		\vspace{5pt}
 		{\Large \@date \par}
+		\vspace{50pt}
+		{\Large 导师:\the\advisor \par}
+		{\Large 审阅人:\the\supervisor \par}
 	\end{flushright}%
+	\vspace{50pt}
+	\begin{center}
+		{\Large \the\equote \par}
+	\end{center}
 	\@thanks
 	\vfil\null
 	\setcounter{footnote}{0}%
