@@ -26,14 +26,19 @@
 \newtoks\equote
 
 
-\DeclareStringOption[en]{lang}
+\DeclareStringOption[cn]{lang}
+
 \DeclareVoidOption{cn}{\ekv{lang = cn}}
 \DeclareVoidOption{en}{\ekv{lang = en}}
 \DeclareStringOption[include]{coverhead}
 \DeclareVoidOption{include}{\ekv{coverhead = include}}
 \DeclareVoidOption{noinclude}{\ekv{coverhead = noinclude}}
 
-    \RequirePackage{ifxetex}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+%\ExecuteOptions{12pt}
+\ProcessKeyvalOptions*\relax
+\ProcessOptions
+\RequirePackage{ifxetex}
 \ifxetex
 	\RequirePackage{fontenc}
 	\RequirePackage[no-math]{fontspec}
@@ -65,7 +70,14 @@
 	\RequirePackage{newtxmath}
 	\RequirePackage[UTF8, scheme=plain]{ctex}
 \fi
-
+\ifdefstring{\INK@lang}{cn}{
+	\newcommand{\advisorname}{导师:}
+	\newcommand{\supervisorname}{审阅人:}
+}{\relax}
+\ifdefstring{\INK@lang}{en}{
+	\newcommand{\advisorname}{Advisor:}
+	\newcommand{\supervisorname}{Supervisor:}
+}{\relax}
 \renewcommand*\maketitle{%
 	\thispagestyle{empty}
 	\let\footnotesize\small
@@ -84,8 +96,8 @@
 		\vspace{5pt}
 		{\Large \@date \par}
 		\vspace{50pt}
-		{\Large 导师:\the\advisor \par}
-		{\Large 审阅人:\the\supervisor \par}
+		{\Large \advisorname\the\advisor \par}
+		{\Large \supervisorname\the\supervisor \par}
 	\end{flushright}%
 	\vspace{50pt}
 	\begin{center}
@@ -94,6 +106,7 @@
 	\@thanks
 	\vfil\null
 	\setcounter{footnote}{0}%
+	\cleardoublepage
  \global\let\thanks\relax
  \global\let\maketitle\relax
  \global\let\@thanks\@empty
@@ -106,4 +119,5 @@
  \global\let\and\relax
 
 }
+
 
